@@ -12,7 +12,7 @@ extern void	gdt_flush(uint32_t gdt_p);
 /*
  * Set the value of one GDT entry.
  */
-static void
+void
 gdt_set_gate(uint32_t n, uint32_t base, uint32_t limit, uint8_t access, uint8_t gran)
 {
 	gdt_entries[n].ge_base_lo = (base & 0xFFFF);

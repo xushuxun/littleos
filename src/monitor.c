@@ -1,4 +1,6 @@
-#include <monitor.h>
+#include "monitor.h"
+#include "io.h"
+#include "types.h"
 
 
 #define MON_DEFAULT_ATTR_BYTE	((0/* black */ << 4) | (15/* white */ & 0x0F))
