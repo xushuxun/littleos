@@ -1,6 +1,7 @@
 #include "monitor.h"
 #include "gdt.h"
 #include "idt.h"
+#include "timer.h"
 
 int kern_entry()
 {
@@ -11,7 +12,9 @@ int kern_entry()
     char s[] = "hello\n";
     mon_write(s);
 
-    asm volatile ("int $0x3");
+    init_timer(50); 
+
+    asm volatile("sti");
 
     return 0;
 }

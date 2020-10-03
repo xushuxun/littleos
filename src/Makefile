@@ -1,5 +1,6 @@
 OBJECTS = loader.o kmain.o io.o monitor.o \
-          gdt.o gdt_flush.o idt.o idt_flush.o isr.o 
+          gdt.o gdt_flush.o idt.o idt_flush.o isr.o \
+		  timer.o
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 			-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -Iinclude
