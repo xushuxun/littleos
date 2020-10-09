@@ -1,6 +1,9 @@
-OBJECTS = loader.o kmain.o io.o monitor.o \
-          gdt.o gdt_flush.o idt.o idt_flush.o isr.o \
-		  timer.o
+OBJECTS = boot/boot.o \
+          common/common.o \
+		  driver/screen.o driver/io.o driver/timer.o \
+		  gdt/gdt.o gdt/gdt_flush.o \
+		  interrupt/idt.o interrupt/idt_flush.o interrupt/irq.o interrupt/isr.o interrupt/handler.o \
+          kmain.o 
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 			-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c -Iinclude
@@ -30,4 +33,4 @@ run: os.iso
 	qemu-system-i386 -boot d -cdrom os.iso -m 512
 
 clean:
-	rm -rf *.o kernel os.iso
+	rm -rf *.o */*.o kernel os.iso

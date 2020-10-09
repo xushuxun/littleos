@@ -1,33 +1,32 @@
+/*
+ * Based on code from Bran's kernel development tutorials.
+ * Rewritten for JamesM's kernel development tutorials.
+ */
 #include "idt.h"
 #include "isr.h"
 #include "io.h"
 
 extern void	idt_flush(uint32_t idt_p);
 
-struct idt_entry	idt_entries[256];
-struct idt_ptr		idt_ptr;
+struct idt_entry idt_entries[256];
+struct idt_ptr	 idt_ptr;
 
-void
-idt_set_gate(uint32_t n, uint32_t base, uint16_t sel, uint8_t flags)
+void idt_set_gate(uint32_t n, uint32_t base, uint16_t sel, uint8_t flags)
 {
 	idt_entries[n].ie_base_lo = base & 0xFFFF;
 	idt_entries[n].ie_base_hi = (base >> 16) & 0xFFFF;
 
 	idt_entries[n].ie_sel     = sel;
 	idt_entries[n].ie_always0 = 0;
-	/* We must uncomment the OR below when we get to using user-mode. It
-	  sets the interrupt gate's privilege level to 3. */
-	idt_entries[n].ie_flags   = flags /* | 0x60 */;
+	idt_entries[n].ie_flags   = flags; 
 }
 
-void
-init_idt(void)
+void init_idt()
 {
 	idt_ptr.ip_limit = sizeof(idt_entries) - 1;
 	idt_ptr.ip_base  = (uint32_t)&idt_entries;
 
-
-	/* Remap the irq table */
+	// 8259A 两片级联 
 	outb(0x20, 0x11);
 	outb(0xA0, 0x11);
 	outb(0x21, 0x20);
@@ -71,6 +70,7 @@ init_idt(void)
 	idt_set_gate(29, (uint32_t)isr29, 0x08, 0x8E);
 	idt_set_gate(30, (uint32_t)isr30, 0x08, 0x8E);
 	idt_set_gate(31, (uint32_t)isr31, 0x08, 0x8E);
+
 	idt_set_gate(32,  (uint32_t)irq0, 0x08, 0x8E);
 	idt_set_gate(33,  (uint32_t)irq1, 0x08, 0x8E);
 	idt_set_gate(34,  (uint32_t)irq2, 0x08, 0x8E);

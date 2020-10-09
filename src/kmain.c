@@ -1,18 +1,18 @@
-#include "monitor.h"
+#include "common.h"
+#include "screen.h"
 #include "gdt.h"
 #include "idt.h"
 #include "timer.h"
 
-int kern_entry()
+int kernal_main()
 {
+    screen_clear();
+
+    printf("kernel init...\n");
+
     init_gdt();
     init_idt();
-
-    mon_clear();
-    char s[] = "hello\n";
-    mon_write(s);
-
-    init_timer(50); 
+    init_timer(200);
 
     asm volatile("sti");
 

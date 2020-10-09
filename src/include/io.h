@@ -1,11 +1,10 @@
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef IO_H
+#define IO_H
 
-#include <types.h>
+#include "common.h"
 
-void		outb(uint16_t port, uint8_t value); /* write a byte out to port */
-uint8_t		inb(uint16_t port); /* read a byte out from port */
-uint16_t	inw(uint16_t port); /* read two bytes out from port */
+void	 outb(uint16_t port, uint8_t value);
+uint8_t	 inb(uint16_t port);
+uint16_t inw(uint16_t port);
 
-
-#endif /* ndef COMMON_H */
+#endif

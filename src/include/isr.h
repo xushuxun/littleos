@@ -5,7 +5,7 @@
  * Part of this code is modified from Bran's kernel development tutorials.
  * Rewritten for JamesM's kernel development tutorials.
  */
-#include "types.h"
+#include "common.h"
 
 #define IRQ0	32
 #define IRQ1	33
@@ -39,4 +39,5 @@ struct cpu_regs
 typedef	void (*isrhdl_t)(struct cpu_regs*);
 
 void register_interrupt_handler(uint32_t n, isrhdl_t handler);
+
 #endif /* ndef ISR_H */
