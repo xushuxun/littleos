@@ -15,4 +15,6 @@ typedef unsigned long	size_t;
 int	 printf(const char *fmt, ...);
 void panic(const char *fmt, ...);
 
+void memset(uint8_t *, uint8_t, uint32_t);
+
 #endif

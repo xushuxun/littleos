@@ -9,9 +9,9 @@
 #include "io.h"
 
 
-void timer_callback(struct cpu_regs regs)
+void timer_callback(struct cpu_regs *regs)
 {
-	printf("tick %d\n", regs.int_no);
+	printf("tick %d\n", regs->int_no);
 }
 
 void init_timer(uint32_t freq)

@@ -12,7 +12,7 @@ isrhdl_t interrupt_handlers[256];
 // 处理内部中断
 void isr_handler(struct cpu_regs* regs)
 {
-	printf("%d", regs->int_no);
+	printf("handle interrupt %d\n", regs->int_no);
 	
     if (interrupt_handlers[regs->int_no]) {
         isrhdl_t handler = interrupt_handlers[regs->int_no];
