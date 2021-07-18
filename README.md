@@ -1,6 +1,6 @@
 # Little OS
 
-For learning OS development, currently implement interruption. 
+For learning OS development, currently implement interruption, paging and heap. 
 
 Materials:
 - http://www.jamesmolloy.co.uk/tutorial_html/
