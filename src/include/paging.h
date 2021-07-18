@@ -64,4 +64,8 @@ struct page *get_page(uint32_t address, int make, struct page_directory *dir);
 **/
 void page_fault(struct cpu_regs*);
 
+void free_frame(struct page *page);
+
+void alloc_frame(struct page *page, int is_kernel, int is_writeable);
+
 #endif

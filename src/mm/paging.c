@@ -110,7 +110,14 @@ void init_paging()
     memset((uint8_t*)frames, 0, INDEX_FROM_BIT(nframes));
 
     kernel_directory = (struct page_directory*)kmalloc_a(sizeof(struct page_directory)); // 申请内存存放页表
+    memset((uint8_t*)kernel_directory, 0, sizeof(struct page_directory));
     current_directory = kernel_directory;
+
+    uint32_t i = 0;
+    for (i = KHEAP_START; i < KHEAP_START + KHEAP_INITIAL_SIZE; i += 0x1000)
+    {
+        get_page(i, 1, kernel_directory);
+    }
 
     // We need to identity map (phys addr = virt addr) from
     // 0x0 to the end of used memory, so we can access this
@@ -119,13 +126,19 @@ void init_paging()
     // inside the loop body we actually change placement_address
     // by calling kmalloc(). A while loop causes this to be
     // computed on-the-fly rather than once at the start.
-    uint32_t i = 0;
-    while (i < placement_address)
+    i = 0;
+    while (i < placement_address+0x1000)
     {
         // Kernel code is readable but not writeable from userspace.
         alloc_frame( get_page(i, 1, kernel_directory), 1, 0);
         i += 0x1000;
     }
+
+    for (i = KHEAP_START; i < KHEAP_START + KHEAP_INITIAL_SIZE; i += 0x1000)
+    {
+        alloc_frame(get_page(i, 1, kernel_directory), 1, 0);
+    }
+
     // Before we enable paging, we must register our page fault handler.
     register_interrupt_handler(14, &page_fault);
 

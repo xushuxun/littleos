@@ -4,6 +4,7 @@
 #include "idt.h"
 #include "timer.h"
 #include "paging.h"
+#include "kheap.h"
 
 int kernal_main()
 {
@@ -15,11 +16,10 @@ int kernal_main()
     init_idt();
     init_paging();
 
-    uint32_t *ptr = (uint32_t*)0xA0000000;
+    uint32_t a = kmalloc(8);
+    printf("%d\n", a);
     
-    uint32_t do_page_fault = *ptr;
     for (;;) {}
 
-    printf("%d", do_page_fault);
     return 0;
 }
