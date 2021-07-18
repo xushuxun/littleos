@@ -36,7 +36,7 @@ struct cpu_regs
  * Enables registration of callbacks for interrupts or IRQs.  For IRQs, to ease
  * confusion, use the #defines above as the first parameter.
  */
-typedef	void (*isrhdl_t)(struct cpu_regs*);
+typedef	void (*isrhdl_t)(struct cpu_regs);
 
 void register_interrupt_handler(uint32_t n, isrhdl_t handler);
 
